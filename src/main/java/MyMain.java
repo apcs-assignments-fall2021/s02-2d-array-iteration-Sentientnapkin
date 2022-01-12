@@ -158,7 +158,7 @@ public class MyMain {
             amount+=mat[i][i];
             reverseDiagonalAmount+=mat[mat.length-(i+1)][mat.length-(i+1)];
         }
-        return amount!=x&&reverseDiagonalAmount!=x;
+        return amount==x&&reverseDiagonalAmount==x;
     }
 
 
