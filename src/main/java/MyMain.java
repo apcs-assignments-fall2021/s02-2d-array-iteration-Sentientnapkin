@@ -156,7 +156,7 @@ public class MyMain {
         }
         for(int i = 0;i<mat.length;i++){
             amount+=mat[i][i];
-            reverseDiagonalAmount+=mat[mat.length-(i+1)][mat.length-(i+1)];
+            reverseDiagonalAmount+=mat[i][mat.length-(i+1)];
         }
         return amount==x&&reverseDiagonalAmount==x;
     }
