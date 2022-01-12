@@ -7,8 +7,13 @@ public class MyMain {
     //      int x = "apple".compareTo("banana"); // x is negative
     //      int y = "banana".compareTo("apple"); // y is positive
     public static String findLastWord(String[] arr) {
-        // YOUR CODE HERE
-        return "";
+        String last = "";
+        for(String str:arr){
+            if (str.compareTo(last)>0){
+                last=str;
+            }
+        }
+        return last;
     }
 
     // Given a 2D array, return an 1D array of the last word
@@ -16,8 +21,11 @@ public class MyMain {
     // You can assume that the matrix will not be empty
     // Hint: use the previous method to help yourself!
     public static String[] findLastWord2D(String[][] mat) {
-        // YOUR CODE HERE
-        return null;
+        String[] lastWords = new String[mat.length];
+        for(int i = 0;i<lastWords.length;i++){
+            lastWords[i]=findLastWord(mat[i]);
+        }
+        return lastWords;
     }
 
     // Given a 2D array and some column index col
@@ -30,8 +38,12 @@ public class MyMain {
     // Hint: remember how the indexOf() method works?
     // alternatively, consider the contains() method
     public static int appleCounter(String[][] mat, int col) {
-        // YOUR CODE HERE
-        return -1;
+        int appleCount = 0;
+        for(int i = 0;i<mat.length;i++){
+            if(mat[i][col].contains("apple"))
+                appleCount++;
+        }
+        return appleCount;
     }
 
     // Given a 2D array, return the column number corresponding
@@ -41,8 +53,12 @@ public class MyMain {
     // Hint: use your previous method!
     // Hint 2: you might need to loop through the columns!
     public static int findMostAppleColumn(String[][] mat) {
-        // YOUR CODE HERE
-        return -1;
+        int longestColumn=0;
+        for(int i = 1;i<mat[0].length;i++){
+            if(appleCounter(mat,i)>appleCounter(mat,longestColumn))
+                longestColumn=i;
+        }
+        return longestColumn;
     }
 
 
@@ -70,8 +86,17 @@ public class MyMain {
     //       from top to bottom
 
     public static int[][] pascal(int height) {
-        // YOUR CODE HERE
-        return null;
+        int[][] pascal = new int[height][height];
+        for(int i = 0;i<height;i++){
+            pascal[i][0]=1;
+            pascal[i][i]=1;
+        }
+        for(int i = 2;i<height;i++){
+            for(int j = 1;j<i;j++){
+                pascal[i][j]=pascal[i-1][j-1]+pascal[i-1][j];
+            }
+        }
+        return pascal;
     }
 
 
@@ -107,8 +132,36 @@ public class MyMain {
     // * do you see any pattern for the row and col indexes for a diagonal?
     // * can you use a for loop that goes through that pattern?
     public static boolean isMagic(int[][] mat) {
-        // YOUR CODE HERE
-        return false;
+        int amount = 0;
+        int reverseDiagonalAmount = 0;
+        int x = 0;
+        for(int num:mat[0]){
+            x+=num;
+        }
+        for(int i = 0;i<mat.length;i++){
+            for(int num:mat[i]){
+                amount+=num;
+            }
+            if(amount!=x){
+                return false;
+            }
+            amount = 0;
+            for(int j = 0;j<mat[0].length;j++){
+                amount+=mat[i][j];
+            }
+            if(amount!=x){
+                return false;
+            }
+            amount = 0;
+        }
+        for(int i = 0;i<mat.length;i++){
+            amount+=mat[i][i];
+            reverseDiagonalAmount+=mat[mat.length-(i+1)][mat.length-(i+1)];
+        }
+        if(amount!=x||reverseDiagonalAmount!=x){
+            return false;
+        }
+        return true;
     }
 
 
